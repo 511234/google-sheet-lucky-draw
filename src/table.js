@@ -69,17 +69,8 @@ export const StickyHeadTable = () => {
     const output3 = output2.map((item) => {
       let z = {};
       for (const key in item) {
-        console.log(Object.keys(item[key]));
         const label = resHeader[key].label;
-        // console.log(item);
-        _.map(item, (cellKey) => {
-          console.log(cellKey);
-          if (cellKey.hasOwnProperty("v")) {
-            console.log(label);
-            console.log(cellKey["v"]);
-            z[label] = cellKey["v"];
-          }
-        });
+        z[label] = Object.values(item[key]).toString();
         // const something = { [label]: Object.values(item[key]).toString() };
       }
       return z;
@@ -116,22 +107,18 @@ export const StickyHeadTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {console.log(people)} */}
+            {console.log(people)}
             {people.map((person, index) => {
-              console.log(person[0]);
+              console.log(person);
+              console.log(headers);
+              console.log(person.Name)
+              console.log(person.key(0));
               return (
-                <>
-                  <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    {/* <TableCell component="th" scope="row">
-                      {person.name}
-                    </TableCell> */}
-                    <>
-                      {/* <TableCell align="left">{person[0][headers[0].label] ?? ""}</TableCell>
-                      <TableCell align="left">{person[1][headers[1].label] ?? ""}</TableCell> */}
-                      {/* <TableCell align="left">{person[2][headers[2].label] ?? "N/A"}</TableCell> */}
-                    </>
-                  </TableRow>
-                </>
+                <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell align="left">{person[headers[0].label] ?? ""}</TableCell>
+                  <TableCell align="left">{person[headers[1].label] ?? ""}</TableCell>
+                  <TableCell align="left">{person[headers[2].label] ?? ""}</TableCell>
+                </TableRow>
               );
             })}
           </TableBody>
