@@ -16,6 +16,8 @@ export const StickyHeadTable = () => {
   const [headers, setHeaders] = useState([]);
   const [labels, setLabels] = useState([]);
   const [people, setPeople] = useState([]);
+  const [testPeople, setTestPeople] = useState([]);
+  const [testHeaders, setTestHeaders] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -67,27 +69,61 @@ export const StickyHeadTable = () => {
     console.log(output2);
 
     const output3 = output2.map((item) => {
-      let z = {};
-      for (const key in item) {
-        const label = resHeader[key].label;
-        z[label] = Object.values(item[key]).toString();
-        // const something = { [label]: Object.values(item[key]).toString() };
+      const y = [];
+      const z = [];
+      for (const key of item) {
+        if (key.hasOwnProperty("v")) {
+          //   console.log(Object.values(key)[0].toString());
+        }
       }
+      //   z.push(Object.values(key)[0].toString());
+      console.log("break");
+      console.log(z);
+
       return z;
     });
     console.log(output3);
-    setPeople(output3);
+  };
 
-    // console.log(resHeader);
+  const getDataTest2 = async () => {
+    const sheetId = "146TCK6K9przwo2oEIun0IDk7wKPmPzVeD335uSHuvAM";
+    const sheetName = "Sheet1";
+    const link = "https://opensheet.elk.sh/" + sheetId + "/" + sheetName;
+    const res = await axios.get(link);
+    console.log(res);
+    setTestPeople(res.data);
+    setTestHeaders(Object.keys(res.data[0]));
   };
 
   useEffect(() => {
     getDataTest();
+    getDataTest2();
   }, []);
 
   useEffect(() => {
     console.log(people);
   }, [people]);
+
+  useEffect(() => {
+    console.log(testPeople);
+  }, [testPeople]);
+
+  useEffect(() => {
+    console.log(testHeaders);
+  }, [testHeaders]);
+
+  const rowArray = (entry) => {
+    // for (const key in testHeaders) {
+    const hihihi = [];
+    for (let i = 0; i < testHeaders.length; i++) {
+      hihihi.push(
+        <TableCell key={entry[testHeaders[i]]} align="left">
+          {entry[testHeaders[i]]}
+        </TableCell>
+      );
+    }
+    return hihihi;
+  };
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
@@ -95,29 +131,28 @@ export const StickyHeadTable = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {headers.map((column) => (
+              {testHeaders.map((column) => (
                 <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
+                  key={column}
+                  //   align={column.align}
+                  //   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  {column}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {console.log(people)}
-            {people.map((person, index) => {
-              console.log(person);
-              console.log(headers);
-              console.log(person.Name)
-              console.log(person.key(0));
+            {testPeople.map((person, index) => {
               return (
                 <TableRow key={index} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="left">{person[headers[0].label] ?? ""}</TableCell>
-                  <TableCell align="left">{person[headers[1].label] ?? ""}</TableCell>
-                  <TableCell align="left">{person[headers[2].label] ?? ""}</TableCell>
+                  {/* <TableCell align="left">{person[testHeaders[0]] ?? ""}</TableCell>
+                  <TableCell align="left">{person[testHeaders[1]] ?? ""}</TableCell>
+                  <TableCell align="left">{person[testHeaders[2]] ?? ""}</TableCell> */}
+                  {rowArray(person)}
+                  {/* <TableCell align="left">{person ?? ""}</TableCell> */}
+                  {/* <TableCell align="left">{person[headers[2].label] ?? ""}</TableCell> */}
                 </TableRow>
               );
             })}
