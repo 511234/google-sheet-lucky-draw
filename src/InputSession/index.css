@@ -1,0 +1,12 @@
+.container {
+  margin: 2rem;
+  padding: 1rem 0rem 2rem 0rem;
+}
+
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+

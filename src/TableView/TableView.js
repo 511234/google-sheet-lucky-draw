@@ -10,7 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import axios from "axios";
 import _ from "lodash";
 
-export const StickyHeadTable = () => {
+export const TableView = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [headers, setHeaders] = useState([]);
@@ -162,7 +162,7 @@ export const StickyHeadTable = () => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={people.length}
+        count={testPeople.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
