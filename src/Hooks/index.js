@@ -8,11 +8,13 @@ export const EntryContext = createContext(null);
 
 export const EDIT_SHEET_ID = "EDIT_SHEET_ID";
 export const EDIT_SHEET_NAME = "EDIT_SHEET_NAME";
-export const GET_SHEET_ENTRIES = "GET_SHEET_ENTRIES";
+export const EDIT_SHEET_HEADERS = "EDIT_SHEET_HEADERS";
+export const EDIT_SHEET_ENTRIES = "EDIT_SHEET_ENTRIES";
 
 export const dataInitialState = {
   sheetId: "",
   sheetName: "Sheet 1",
+  sheetHeaders: [],
   sheetEntries: [],
 };
 
@@ -25,7 +27,10 @@ export const dataReducer = (state, action) => {
     case EDIT_SHEET_NAME:
       return { ...state, sheetName: payload };
 
-    case GET_SHEET_ENTRIES:
+    case EDIT_SHEET_HEADERS:
+      return { ...state, sheetHeaders: payload };
+
+    case EDIT_SHEET_ENTRIES:
       return { ...state, sheetEntries: payload };
   }
 };

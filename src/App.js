@@ -1,11 +1,12 @@
 import "./App.css";
 import { InputSession } from "./InputSession";
 import { FunctionalTab } from "./FunctionalTab";
-import { TableView } from "./TableView/index.js";
+import { DataTable } from "./TableView/index.js";
 import { LuckyWheel } from "./LuckyWheel";
-import { useState, useReducer } from "react";
+import { useReducer } from "react";
 import { dataInitialState, dataReducer, EntryContext } from "./Hooks";
 import { RaffleDraw } from "./RaffleDraw";
+import { SheetData } from "./Hooks/sheetData";
 
 const App = () => {
   const [state, dispatch] = useReducer(dataReducer, dataInitialState);
@@ -14,7 +15,8 @@ const App = () => {
     <>
       <EntryContext.Provider value={{ dataState: state, dataDispatch: dispatch }}>
         <InputSession />
-        <FunctionalTab views={[<TableView />, <LuckyWheel />, <RaffleDraw />]} />
+        <FunctionalTab views={[<DataTable />, <LuckyWheel />, <RaffleDraw />]} />
+        <SheetData />
       </EntryContext.Provider>
     </>
   );

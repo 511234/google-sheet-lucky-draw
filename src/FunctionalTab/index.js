@@ -52,6 +52,7 @@ export const FunctionalTab = ({ views }) => {
           <Tab label="Table View" {...a11yProps(0)} />
           <Tab label="Lucky Wheel View" {...a11yProps(1)} />
           <Tab label="Raffle Draw View" {...a11yProps(2)} />
+          {/* <Tab label="Backup" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
       {console.log(entryContext.dataState)}

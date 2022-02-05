@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 
-import { Paper, Divider, TextField, Typography, Box } from "@mui/material";
-import Button from "@mui/material/Button";
+import { Paper, Divider, TextField, Typography, Box, Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import "./index.css";
 import { EDIT_SHEET_ID, EDIT_SHEET_NAME, EntryContext } from "../Hooks";
@@ -12,7 +11,7 @@ export const InputSession = () => {
   return (
     <Paper elevation={3} className="container">
       <Typography variant="h3" component="h3" align="center" gutterBottom={true}>
-        Google Sheet Lucky Draw
+        Google Sheet Widget
       </Typography>
       <div className="input-container">
         <Box
@@ -41,7 +40,12 @@ export const InputSession = () => {
             Sheet Name for testing: Sheet 1
           </Typography>
         </Box>
-        <Divider orientation="vertical" variant="middle" flexItem />
+        <Divider
+          sx={{ display: { xs: "none", md: "block" } }}
+          orientation="vertical"
+          variant="middle"
+          flexItem
+        />
         <div className="input-field">
           <TextField
             fullWidth
