@@ -1,12 +1,14 @@
-import * as React from "react";
+import { useState, useContext } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { TableView } from "../TableView/TableView";
+import { EntryContext } from "../Hooks";
 
-function TabPanel(props) {
+// TabPanel can be another component / library
+
+const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -19,57 +21,43 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
   );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
+// a11yProps can also be another component / library
+
+const a11yProps = (index) => {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
   };
-}
+};
 
-export const FunctionalTab = (tab1, tab2) => {
-  const [value, setValue] = React.useState(0);
+export const FunctionalTab = ({ views }) => {
+  const [value, setValue] = useState(0);
+  const entryContext = useContext(EntryContext);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const tableView = <TableView />;
-  console.log("table view");
-  console.log(tableView);
-  console.log("tab1");
-  console.log(tab1);
-  console.log("tab1 children");
-  console.log(tab1.children);
-  console.log("tab1 component");
-  console.log(tab1.component);
-  console.log("tab1 values");
-  console.log(Object.values(tab1));
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Table View" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Lucky Wheel View" {...a11yProps(1)} />
+          <Tab label="Raffle Draw View" {...a11yProps(2)} />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0} children={Object.values(tab1)} />
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
+      {console.log(entryContext.dataState)}
+      {views.map((item, key) => {
+        return <TabPanel value={value} key={key} index={key} children={item} />;
+      })}
     </Box>
   );
 };

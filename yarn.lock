@@ -9004,7 +9004,7 @@
   "resolved" "https://registry.npmjs.org/workbox-strategies/-/workbox-strategies-6.4.2.tgz"
   "version" "6.4.2"
   dependencies:
-    "workbox-core" "6.4.2"
+    "work-core" "6.4.2"
 
 "workbox-streams@6.4.2":
   "integrity" "sha512-ROEGlZHGVEgpa5bOZefiJEVsi5PsFjJG9Xd+wnDbApsCO9xq9rYFopF+IRq9tChyYzhBnyk2hJxbQVWphz3sog=="
