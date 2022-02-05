@@ -1,6 +1,7 @@
 {
   "name": "google-sheet-lucky-draw",
   "version": "0.1.0",
+  "homepage": "https://511234.github.io/google-sheet-lucky-draw",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -20,7 +21,9 @@
     "start": "PORT=4000 react-scripts start",
     "build": "PORT=4000 react-scripts build",
     "test": "PORT=4000 react-scripts test",
-    "eject": "PORT=4000 react-scripts eject"
+    "eject": "PORT=4000 react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }
