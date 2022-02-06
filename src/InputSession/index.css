@@ -11,3 +11,17 @@
   width: "fit-content";
   justify-content: space-evenly;
 }
+
+.input-container > ul {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+
+.input-container > li:before {
+  content: "►";
+  display: block;
+  float: left;
+  width: 1.2em;
+}

@@ -26,11 +26,9 @@ export const InputSession = () => {
             A handly application for you to view Google Sheet and draw Random People!
           </Typography>
           <ul>
-            <li>Visit your Google Sheet Page</li>
             <li>Copy Sheet ID from URL (the text between /d/ and /edit)</li>
             <li>Paste it in the field on the right</li>
             <li>Type in Sheet Name on the right</li>
-            <li>View Google Sheet Table below in Table View!</li>
             <li>Switch between different tabs to play around!</li>
           </ul>
           <Typography variant="caption" align="left">
