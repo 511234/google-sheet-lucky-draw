@@ -45,8 +45,5 @@ export const SheetData = () => {
     entryContext.dataDispatch({ type: EDIT_SHEET_ENTRIES, payload: openSheetPeople });
   }, [openSheetHeaders]);
 
-  console.log(openSheetHeaders);
-  console.log(openSheetPeople);
-
   return <></>;
 };

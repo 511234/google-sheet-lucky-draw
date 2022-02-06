@@ -10,7 +10,7 @@ export const LuckyWheel = () => {
   const [canSpin, setCanSpin] = useState(true)
   const [isNewStart, setIsNewStart] = useState(true)
   const [random, setRandom] = useState(0)
-  const [winner, setWinner] = useState([])
+  const [winners, setWinners] = useState([])
   const [isWinnerVisible, setIsWinnerVisible] = useState(false)
 
   const headers = entryContext.dataState.sheetHeaders
@@ -54,19 +54,14 @@ export const LuckyWheel = () => {
   const handleRestart = () => {
     setIsNewStart(true)
     setCanSpin(true)
-    setWinner([])
   }
-  console.log(headers)
 
   useEffect(() => {
-    console.log("real " + (360 - random))
     const actualDeg = random % 360
-    const which = Math.ceil(((360 - actualDeg) / 360) * entryContext.dataState.sheetEntries.length)
-    console.log(which)
-    const who = entryContext.dataState.sheetEntries.find((obj) => obj.id == which)
-    if (who) {
-      console.log(who)
-      setWinner(who[headers[0].headerName] || "")
+    const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * entryContext.dataState.sheetEntries.length)
+    const luckyPerson = entryContext.dataState.sheetEntries.find((entry) => entry.id == luckyEntry)
+    if (luckyPerson) {
+      setWinners([...winners, luckyPerson[headers[0].headerName]])
     }
   }, [random])
 
@@ -90,7 +85,7 @@ export const LuckyWheel = () => {
       ) : (
         <Button onClick={() => handleRestart()}>RESTART</Button>
       )}
-      <div>And the winner is ... {isWinnerVisible ? winner : ""} !</div>
+      <div>And the winner is ... {isWinnerVisible ? winners[winners.length - 1] : ""} !</div>
     </div>
   )
 }

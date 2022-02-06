@@ -55,7 +55,6 @@ export const FunctionalTab = ({ views }) => {
           {/* <Tab label="Backup" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
-      {console.log(entryContext.dataState)}
       {views.map((item, key) => {
         return <TabPanel value={value} key={key} index={key} children={item} />;
       })}
