@@ -47,10 +47,5 @@
   height: 200%;
   text-align: center;
   display: block;
-}
-
-.wheel-container > .spinning {
-  transform: rotate(3610deg);
-  transition: all 5s ease-out
-  /* animation: start-rotate 1s linear infinite */
+  font-family:'Lobster'
 }

@@ -90,7 +90,7 @@ export const LuckyWheel = () => {
       ) : (
         <Button onClick={() => handleRestart()}>RESTART</Button>
       )}
-      <div>And the Winner is ... {isWinnerVisible ? winner : ""} !</div>
+      <div>And the winner is ... {isWinnerVisible ? winner : ""} !</div>
     </div>
   )
 }

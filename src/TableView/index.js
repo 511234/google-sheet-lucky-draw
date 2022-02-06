@@ -6,7 +6,7 @@ export const DataTable = () => {
   const entryContext = useContext(EntryContext);
 
   return (
-    <div style={{ height: 500, width: "100%" }}>
+    <div style={{ height: '40rem', width: "100%" }}>
       <DataGrid
         rows={entryContext.dataState.sheetEntries}
         columns={entryContext.dataState.sheetHeaders}

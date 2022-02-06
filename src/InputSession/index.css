@@ -1,15 +1,15 @@
-.container {
-  margin: 2rem;
-  padding: 1rem 0rem 2rem 0rem;
-}
-
 .input-container {
+  margin: 0rem;
+  padding: 0.5rem 2rem 0.5rem 2rem;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: "fit-content";
-  justify-content: space-evenly;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.input-container > h1 {
+  font-family: "Lobster", cursive;
 }
 
 .input-container > ul {
@@ -19,8 +19,8 @@
   text-indent: -1.2em;
 }
 
-.input-container > li:before {
-  content: "►";
+.input-container > ul > li:before {
+  content: "-";
   display: block;
   float: left;
   width: 1.2em;

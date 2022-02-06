@@ -50,8 +50,8 @@ export const FunctionalTab = ({ views }) => {
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Table View" {...a11yProps(0)} />
-          <Tab label="Lucky Wheel View" {...a11yProps(1)} />
-          <Tab label="Raffle Draw View" {...a11yProps(2)} />
+          <Tab label="Lucky Wheel" {...a11yProps(1)} />
+          <Tab label="Raffle Draw" {...a11yProps(2)} />
           {/* <Tab label="Backup" {...a11yProps(2)} /> */}
         </Tabs>
       </Box>
