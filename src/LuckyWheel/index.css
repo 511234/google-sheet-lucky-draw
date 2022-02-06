@@ -1,8 +1,20 @@
 .wheel-container {
-  /* display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; */
+  flex-direction: column;
+}
+
+.wheel-container .arrow {
+  z-index: 1;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 30px solid #000;
+  position: relative;
+  /* left: 50%; */
+  /* top: -80%; */
 }
 
 .wheel-container > .wheel {
@@ -12,7 +24,7 @@
   border-radius: 50%;
   position: relative;
   padding: 0;
-  margin: 1em auto;
+  margin: -1rem 0.5rem auto;
   list-style: none;
   overflow: hidden;
   width: 25rem;
@@ -35,4 +47,10 @@
   height: 200%;
   text-align: center;
   display: block;
+}
+
+.wheel-container > .spinning {
+  transform: rotate(3610deg);
+  transition: all 5s ease-out
+  /* animation: start-rotate 1s linear infinite */
 }
