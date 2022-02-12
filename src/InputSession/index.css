@@ -25,3 +25,7 @@
   float: left;
   width: 1.2em;
 }
+
+.input-container > .contact {
+  flex-grow:1
+}

@@ -13,7 +13,6 @@ export const EDIT_SHEET_ENTRIES = "EDIT_SHEET_ENTRIES";
 
 export const dataInitialState = {
   sheetId: "",
-  sheetName: "Sheet 1",
   sheetHeaders: [],
   sheetEntries: [],
 };
@@ -23,9 +22,6 @@ export const dataReducer = (state, action) => {
   switch (type) {
     case EDIT_SHEET_ID:
       return { ...state, sheetId: payload };
-
-    case EDIT_SHEET_NAME:
-      return { ...state, sheetName: payload };
 
     case EDIT_SHEET_HEADERS:
       return { ...state, sheetHeaders: payload };

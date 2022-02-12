@@ -15,7 +15,6 @@ export const InputSession = () => {
       <ul>
         <li>Copy Sheet ID from URL (the text between /d/ and /edit)</li>
         <li>Paste it in the field on the right</li>
-        <li>Type in Sheet Name on the right</li>
         <li>Switch between different tabs to play around!</li>
       </ul>
 
@@ -26,13 +25,6 @@ export const InputSession = () => {
         id="sheetId"
         label="Sheet ID"
         onChange={(e) => entryContext.dataDispatch({ type: EDIT_SHEET_ID, payload: e.target.value })}
-      />
-      <TextField
-        fullWidth
-        margin="dense"
-        id="sheetName"
-        label="Sheet Name (Default: Sheet 1)"
-        onChange={(e) => entryContext.dataDispatch({ type: EDIT_SHEET_NAME, payload: e.target.value })}
       />
       {/* <Button variant="contained" endIcon={<SendIcon />}>
           Go!
