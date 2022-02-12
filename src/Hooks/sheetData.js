@@ -4,9 +4,6 @@ import { EDIT_SHEET_HEADERS, EDIT_SHEET_ENTRIES, EntryContext } from "../Hooks"
 
 export const SheetData = () => {
   const entryContext = useContext(EntryContext)
-  const [sheetPeople, setSheetPeople] = useState([])
-  const [sheetHeaders, setSheetHeaders] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
 
   const getDataFromOpenSheet = async () => {
     const sheetId = entryContext.dataState.sheetId
@@ -22,13 +19,11 @@ export const SheetData = () => {
       for (const key of cols) {
         colsArray.push(key.label)
       }
-      setSheetHeaders(() => {
-        const headers = []
-        for (const value of colsArray) {
-          headers.push({ field: value, headerName: value })
-        }
-        return headers
-      })
+      const headers = []
+      for (const value of colsArray) {
+        headers.push({ field: value, headerName: value })
+      }
+      entryContext.dataDispatch({ type: EDIT_SHEET_HEADERS, payload: headers })
 
       // Set People
       const rows = resObj.table.rows
@@ -45,27 +40,21 @@ export const SheetData = () => {
         })
         return rowsArray
       }
-      setSheetPeople(() => {
-        const people = getRows()
-        people.forEach((entry, i) => {
-          entry.id = entry.hasOwnProperty("id") ? entry.id : i + 1
-        })
-        return people
+      const people = getRows()
+      people.forEach((entry, i) => {
+        entry.id = entry.hasOwnProperty("id") ? entry.id : i + 1
       })
+      entryContext.dataDispatch({ type: EDIT_SHEET_ENTRIES, payload: people })
     } catch (e) {
       console.log(e)
     }
-
   }
 
   useEffect(() => {
-    getDataFromOpenSheet()
-  }, [entryContext.dataState.sheetId, entryContext.dataState.sheetName])
-
-  useEffect(() => {
-    entryContext.dataDispatch({ type: EDIT_SHEET_HEADERS, payload: sheetHeaders })
-    entryContext.dataDispatch({ type: EDIT_SHEET_ENTRIES, payload: sheetPeople })
-  }, [sheetHeaders, sheetPeople])
+    if (entryContext.dataState.sheetId) {
+      getDataFromOpenSheet()
+    }
+  }, [entryContext.dataState.sheetId])
 
   return <></>
 }

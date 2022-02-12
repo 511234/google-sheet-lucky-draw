@@ -8,6 +8,7 @@ import { dataInitialState, dataReducer, EntryContext } from "./Hooks"
 import { RaffleDraw } from "./RaffleDraw"
 import { SheetData } from "./Hooks/sheetData"
 import Grid from "@mui/material/Grid"
+import { About } from "./About"
 
 const App = () => {
   const [state, dispatch] = useReducer(dataReducer, dataInitialState)
@@ -19,7 +20,7 @@ const App = () => {
           <InputSession />
         </Grid>
         <Grid item xs={12} md={8}>
-          <FunctionalTab views={[<DataTable />, <LuckyWheel />, <RaffleDraw />]} />
+          <FunctionalTab views={[<About />, <DataTable />, <LuckyWheel />, <RaffleDraw />]} />
         </Grid>
       </Grid>
       <SheetData />

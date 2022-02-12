@@ -51,7 +51,6 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Wheel Label</InputLabel>
               <Select
-                displayEmpty
                 defaultValue=''
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
