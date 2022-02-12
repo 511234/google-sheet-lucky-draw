@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 
-import { Paper, Divider, TextField, Typography, Box, Button } from "@mui/material"
+import { Paper, Divider, TextField, Button } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import "./index.css"
 import { EDIT_SHEET_ID, EDIT_SHEET_NAME, EntryContext } from "../Hooks"
@@ -27,12 +27,12 @@ export const InputSession = () => {
         fullWidth
         margin="dense"
         id="sheetId"
-        label="Sheet ID"
+        label="Sheet Id"
         value={sheetId}
         onChange={(e) => setSheetId(e.target.value)}
       />
       <Button variant="contained" onClick={() => fetchSheetEntries()} endIcon={<SendIcon />}>
-        Go!
+        submit
       </Button>
     </Paper>
   )

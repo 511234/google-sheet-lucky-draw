@@ -1,9 +1,6 @@
-import { useState, useContext } from "react"
-import PropTypes from "prop-types"
-import Tabs from "@mui/material/Tabs"
-import Tab from "@mui/material/Tab"
-import Typography from "@mui/material/Typography"
-import Box from "@mui/material/Box"
+import { useState } from "react"
+import { Typography, Box, Tab, Tabs } from "@mui/material"
+import { makeStyles } from "@mui/styles"
 
 // TabPanel can be another component / library
 
@@ -49,12 +46,12 @@ export const FunctionalTab = ({ views }) => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="About" {...a11yProps(0)} />
           <Tab label="Table View" {...a11yProps(1)} />
-          <Tab label="Lucky Wheel" {...a11yProps(2)} />
-          <Tab label="Raffle Draw" {...a11yProps(3)} />
+          <Tab label="Lucky Draw" {...a11yProps(2)} />
+          {/* <Tab label="Raffle Draw" {...a11yProps(3)} /> */}
         </Tabs>
       </Box>
       {views.map((item, key) => {
-        return <TabPanel value={value} key={key} index={key} children={item} />
+        return <TabPanel value={value} key={key} index={key} children={item} style={{ height: "92vh" }} />
       })}
     </Box>
   )

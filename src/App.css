@@ -1,9 +1,7 @@
 html,
 body {
-  height: calc(100vh - 20px);
 }
 
 .App {
   text-align: center;
-  min-height: 100vh;
 }

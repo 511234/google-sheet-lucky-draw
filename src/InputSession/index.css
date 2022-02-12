@@ -1,3 +1,8 @@
+@media screen and (max-width: 540px) {
+  .input-container {
+  }
+}
+
 .input-container {
   margin: 0rem;
   padding: 0.5rem 2rem 0.5rem 2rem;
@@ -5,7 +10,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
 }
 
 .input-container > h1 {
@@ -27,5 +32,5 @@
 }
 
 .input-container > .contact {
-  flex-grow:1
+  flex-grow: 1;
 }
