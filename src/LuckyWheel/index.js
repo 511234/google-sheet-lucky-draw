@@ -1,17 +1,19 @@
-import React, { useContext, useEffect, useState, useRef } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { EntryContext } from "../Hooks"
 import { Button } from "@mui/material"
 import "./index.css"
 import { COLORS } from "../Constants/colors"
+import { CustomCondition } from "../CustomCondition"
 
 export const LuckyWheel = () => {
   const entryContext = useContext(EntryContext)
-
   const [canSpin, setCanSpin] = useState(true)
   const [isNewStart, setIsNewStart] = useState(true)
   const [random, setRandom] = useState(0)
   const [winners, setWinners] = useState([])
   const [isWinnerVisible, setIsWinnerVisible] = useState(false)
+  const [wheelSpeed, setWheelSpeed] = useState(5)
+  const [wheelLabel, setWheelLabel] = useState("")
 
   const headers = entryContext.dataState.sheetHeaders
 
@@ -24,7 +26,7 @@ export const LuckyWheel = () => {
       const sectorTextRotateDegrees = 360 / entries.length / 2
 
       sectors.push(
-        <li style={{ transform: `rotate(${sectorRotateDegrees}deg) skewY(-${sectorSkewDegrees}deg)` }}>
+        <li key={index} style={{ transform: `rotate(${sectorRotateDegrees}deg) skewY(-${sectorSkewDegrees}deg)` }}>
           <div
             className="colored-sector"
             style={{
@@ -32,7 +34,7 @@ export const LuckyWheel = () => {
               transform: `skewY(${sectorSkewDegrees}deg) rotate(${sectorTextRotateDegrees}deg)`,
             }}
           >
-            {entry[headers[0].headerName]}
+            {entry[wheelLabel]}
           </div>
         </li>
       )
@@ -48,44 +50,58 @@ export const LuckyWheel = () => {
 
     setTimeout(() => {
       setIsWinnerVisible(true)
-    }, 5000)
+      setCanSpin(true)
+    }, wheelSpeed * 1000)
   }
 
   const handleRestart = () => {
     setIsNewStart(true)
-    setCanSpin(true)
+    setIsWinnerVisible(false)
   }
 
+  // When wheel starts spinning towards a random degree, get the winner by relative position of the person at the wheel
   useEffect(() => {
     const actualDeg = random % 360
     const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * entryContext.dataState.sheetEntries.length)
     const luckyPerson = entryContext.dataState.sheetEntries.find((entry) => entry.id == luckyEntry)
     if (luckyPerson) {
-      setWinners([...winners, luckyPerson[headers[0].headerName]])
+      setWinners([...winners, luckyPerson[wheelLabel]])
     }
   }, [random])
+  useEffect(() => {
+    if (entryContext.dataState.sheetHeaders.length) {
+      setWheelLabel(headers[0].headerName)
+    }
+  }, [headers])
 
   return (
-    <div className="wheel-container">
-      <div className="arrow"></div>
-      <ul
-        className="wheel"
-        style={
-          isNewStart
-            ? { transform: `rotate(0deg)` }
-            : { transform: `rotate(${random}deg)`, transition: "all 5s ease-out" }
-        }
-      >
-        {createSectors(entryContext.dataState.sheetEntries)}
-      </ul>
-      {isNewStart ? (
-        <Button onClick={() => handleSpinning()} disabled={!canSpin}>
-          SPIN!
-        </Button>
-      ) : (
-        <Button onClick={() => handleRestart()}>RESTART</Button>
-      )}
-      <div>And the winner is ... {isWinnerVisible ? winners[winners.length - 1] : ""} !</div>
-    </div>
+    <>
+      <div className="wheel-container">
+        <div className="arrow"></div>
+        <ul
+          className="wheel"
+          style={
+            isNewStart
+              ? { transform: `rotate(0deg)` }
+              : { transform: `rotate(${random}deg)`, transition: `all ${wheelSpeed}s ease-out` }
+          }
+        >
+          {createSectors(entryContext.dataState.sheetEntries)}
+        </ul>
+        {isNewStart ? (
+          <Button onClick={() => handleSpinning()} disabled={!canSpin}>
+            SPIN!
+          </Button>
+        ) : (
+          <Button onClick={() => handleRestart()} disabled={!canSpin}>
+            RETURN TO STARTING POINT
+          </Button>
+        )}
+        <div>Seconds to roll: {wheelSpeed}</div>
+        <div>Wheel Label: {wheelLabel}</div>
+        <div>And the winner is ... {isWinnerVisible ? winners[winners.length - 1] : ""} !</div>
+      </div>
+      <CustomCondition isSpinning={!canSpin} setWheelSpeed={setWheelSpeed} setWheelLabel={setWheelLabel} />
+    </>
   )
 }
