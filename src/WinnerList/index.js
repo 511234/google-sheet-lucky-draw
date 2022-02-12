@@ -29,7 +29,6 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
       })
     return list
   }
-  console.log(winners)
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
