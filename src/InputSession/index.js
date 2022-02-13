@@ -1,11 +1,16 @@
 import React, { useContext, useState } from "react"
 
-import { Paper, InputLabel, TextField, Button } from "@mui/material"
+import { Paper, TextField, Button, Divider } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
+import GitHubIcon from "@mui/icons-material/GitHub"
+import EmailIcon from "@mui/icons-material/Email"
 import "./index.css"
 import { EDIT_SHEET_ID, EntryContext } from "../Hooks"
 
 export const InputSession = () => {
+  const pointerStyle = {
+    cursor: "pointer",
+  }
   const entryContext = useContext(EntryContext)
   const [sheetId, setSheetId] = useState("")
 
@@ -16,7 +21,13 @@ export const InputSession = () => {
   return (
     <Paper elevation={3} className="input-container">
       <h1 style={{ textAlign: "center" }}> Google Sheet Widget</h1>
-      {/* <InputLabel id="sheet-id">SHEET ID</InputLabel> */}
+      <div className="contact-me-container">
+        <div>Created by Lulu TUNG</div>
+        <Divider orientation="vertical" flexItem />
+        <GitHubIcon sx={pointerStyle} onClick={() => window.open("https://github.com/511234", "_blank")} />
+        <Divider orientation="vertical" flexItem />
+        <EmailIcon sx={pointerStyle} onClick={() => (window.location = "mailto:tungkl1200@gmail.com")} />
+      </div>
       <TextField
         fullWidth
         margin="dense"

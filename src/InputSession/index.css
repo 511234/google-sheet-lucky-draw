@@ -11,7 +11,7 @@
 
 .input-container > h1 {
   font-family: "Lobster", cursive;
-  margin:0;
+  margin: 0;
 }
 
 .input-container > ul {
@@ -30,4 +30,12 @@
 
 .input-container > .contact {
   flex-grow: 1;
+}
+
+.contact-me-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 90%;
 }
