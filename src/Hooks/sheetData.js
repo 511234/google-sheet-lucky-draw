@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import axios from "axios"
 import { EDIT_SHEET_HEADERS, EDIT_SHEET_ENTRIES, EntryContext } from "../Hooks"
 
@@ -34,6 +34,7 @@ export const SheetData = () => {
           Object.values(row)[0].map((record, index) => {
             const label = colsArray[index]
             obj[label] = record.v
+            return obj
           })
           rowsArray.push(obj)
           return rowsArray

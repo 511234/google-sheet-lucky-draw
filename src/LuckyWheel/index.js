@@ -42,6 +42,7 @@ export const LuckyWheel = () => {
           </div>
         </li>
       )
+      return sectors
     })
     return sectors
   }
@@ -73,7 +74,7 @@ export const LuckyWheel = () => {
   useEffect(() => {
     const actualDeg = random % 360
     const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * participants.length)
-    const luckyPerson = participants.find((entry, index) => index == luckyEntry - 1)
+    const luckyPerson = participants.find((entry, index) => index === luckyEntry - 1)
     if (luckyPerson) {
       setWinners([...winners, luckyPerson[wheelLabel]])
     }
@@ -81,7 +82,7 @@ export const LuckyWheel = () => {
   }, [random])
 
   useEffect(() => {
-    if (entryContext.dataState.sheetHeaders.length) {
+    if (headers.length) {
       setWheelLabel(headers[0].headerName)
     }
   }, [headers])

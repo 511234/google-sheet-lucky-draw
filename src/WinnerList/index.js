@@ -8,7 +8,7 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
   const showWinnerList = () => {
     const list = []
     winners
-      .filter((winner, index) => index != winners.length - 1)
+      .filter((winner, index) => index !== winners.length - 1)
       .map((winner, index) => {
         list.push(
           <ListItem
@@ -26,6 +26,7 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
             <ListItemText primary={winner} />
           </ListItem>
         )
+        return list
       })
     return list
   }

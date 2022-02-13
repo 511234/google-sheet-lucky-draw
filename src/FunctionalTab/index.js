@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Typography, Box, Tab, Tabs } from "@mui/material"
-import { makeStyles } from "@mui/styles"
 
 // TabPanel can be another component / library
 
