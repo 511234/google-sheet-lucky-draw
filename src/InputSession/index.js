@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
 
-import { Paper, TextField, Button, Divider } from "@mui/material"
+import { Paper, TextField, Button, Divider, Typography } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
 import GitHubIcon from "@mui/icons-material/GitHub"
 import EmailIcon from "@mui/icons-material/Email"
@@ -12,7 +12,7 @@ export const InputSession = () => {
     cursor: "pointer",
   }
   const entryContext = useContext(EntryContext)
-  const [sheetId, setSheetId] = useState("")
+  const [sheetId, setSheetId] = useState("146TCK6K9przwo2oEIun0IDk7wKPmPzVeD335uSHuvAM")
 
   const fetchSheetEntries = () => {
     entryContext.dataDispatch({ type: EDIT_SHEET_ID, payload: sheetId })
@@ -26,7 +26,7 @@ export const InputSession = () => {
         <Divider orientation="vertical" flexItem />
         <GitHubIcon sx={pointerStyle} onClick={() => window.open("https://github.com/511234", "_blank")} />
         <Divider orientation="vertical" flexItem />
-        <EmailIcon sx={pointerStyle} onClick={() => (window.location = "mailto:tungkl1200@gmail.com")} />
+        <EmailIcon sx={pointerStyle} onClick={() => (window.location = "mailto:lulutheflaneur@gmail.com")} />
       </div>
       <TextField
         fullWidth
