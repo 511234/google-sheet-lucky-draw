@@ -7,8 +7,16 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  deploy-to-gh-page:
+    name: Deploy to gh-page 
     runs-on: ubuntu-latest
+
     steps:
+      - name: Prepare deployment
+        run: echo Auto deployment triggered by ${{ github.event_name }}. Ready to deploy latest commit(s) to gh-page
+      
       - name: Deploy
-      - run: npm run deploy
+        run: npm run deploy
+      
+      - name: Notify user of deployment completion
+        run: echo Commit(s) successfully deployed to gh-page
