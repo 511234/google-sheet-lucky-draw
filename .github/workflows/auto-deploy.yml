@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Prepare deployment
-        run: echo Auto deployment triggered by ${{ github.event_name }}. Ready to deploy latest commit(s) to gh-page
+        run: echo Auto deployment triggered by ${{ github.event_name }}. Ready to deploy latest commits to gh-page
       
       - name: Deploy
         run: npm run deploy
       
       - name: Notify user of deployment completion
-        run: echo Commit(s) successfully deployed to gh-page
+        run: echo Commits successfully deployed to gh-page
