@@ -1,0 +1,14 @@
+name: Auto deploying google-sheet-lucky-draw to gh-page
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+      - run: npm run deploy
