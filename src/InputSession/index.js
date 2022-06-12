@@ -39,7 +39,7 @@ export const InputSession = () => {
       <Button variant="contained" onClick={() => fetchSheetEntries()} endIcon={<SendIcon />}>
         submit
       </Button>
-      test1
+      test2
     </Paper>
   )
 }
