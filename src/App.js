@@ -20,7 +20,7 @@ const App = () => {
           <InputSession />
         </Grid>
         <Grid item xs={12} md={8}>
-          <FunctionalTab views={[<About />, <DataTable />, <LuckyWheel />, <RaffleDraw />]} />
+          <FunctionalTab views={[<LuckyWheel />, <DataTable />]} />
         </Grid>
       </Grid>
       <SheetData />

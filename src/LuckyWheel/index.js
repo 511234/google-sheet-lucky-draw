@@ -112,8 +112,6 @@ export const LuckyWheel = () => {
                 RETURN TO STARTING POINT
               </Button>
             )}
-            <div>Seconds to roll: {wheelSpeed}</div>
-            <div>Wheel Label: {wheelLabel}</div>
             <div>And the winner is ... {isWinnerVisible ? winners[winners.length - 1] : ""} !</div>
           </div>
         </Grid>
