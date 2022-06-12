@@ -26,7 +26,8 @@ jobs:
         uses: actions/setup-node@v1
       - name: Install dependencies
         run: npm install
-      - name: npm run build
+      - name: Create production build
+        run: npm run build
       - name: Deploy
         uses: 511234/actions-gh-pages@v3
         with:
