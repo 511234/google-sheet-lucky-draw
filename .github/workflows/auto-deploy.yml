@@ -29,7 +29,7 @@ jobs:
       - name: Create production build
         run: npm run build
       - name: Deploy
-        uses: 511234/google-sheet-lucky-draw
+        uses: 511234/google-sheet-lucky-draw@v1
         with:
           branch: gh-pages
           github_token: ${{ secrets.ACCESS_TOKEN }}
