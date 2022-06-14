@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
-    "build": "PORT=4000 react-scripts build",
+    "build": "PORT=4000 set \"CI=false\" && react-scripts build",
     "test": "PORT=4000 react-scripts test",
     "eject": "PORT=4000 react-scripts eject",
     "predeploy": "npm run build",
