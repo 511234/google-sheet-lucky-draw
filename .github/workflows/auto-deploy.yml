@@ -21,7 +21,7 @@ jobs:
       - name: Prepare deployment
         run: echo Auto deployment triggered by ${{ github.event_name }}. Ready to deploy latest commits to gh-page
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Node
         uses: actions/setup-node@v1
       - name: Install dependencies
