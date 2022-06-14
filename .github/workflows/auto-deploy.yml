@@ -29,10 +29,12 @@ jobs:
       - name: Create production build
         run: npm run build
       - name: Deploy
-        uses: 511234/actions-gh-pages@v3
+        uses: 511234/google-sheet-lucky-draw@v3
         with:
+          branch: gh-pages
           github_token: ${{ secrets.ACCESS_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./build
+          single-commit: true
       
       - name: Notify user of deployment completion
         run: echo Commits successfully deployed to gh-page
