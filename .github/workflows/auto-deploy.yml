@@ -8,14 +8,16 @@ on:
 
 jobs:
   deploy-to-gh-page:
-    name: Deploy to gh-page 
+    name: Deploy to gh-page
     runs-on: ubuntu-latest
-    # env:
-      # ACCESS_TOKEN: ${{secrets.access_token}}
-      # PUBLISH_DIR: ./dist
-    # strategy:
-    #   matrix:
-    #     node-version: [16.x]
+    env:
+      ACCESS_TOKEN: ${{secrets.access_token}}
+      USERNAME: 511234
+      EMAIL: lulutheflaneur@gmail.com
+      PUBLISH_DIR: ./build
+    strategy:
+      matrix:
+        node-version: [16.x]
 
     steps:
       - name: Prepare deployment
@@ -29,12 +31,16 @@ jobs:
       - name: Create production build
         run: npm run build
       - name: Deploy
-        uses: 511234/google-sheet-lucky-draw@v1
-        with:
-          branch: gh-pages
-          github_token: ${{ secrets.ACCESS_TOKEN }}
-          publish_dir: ./build
-          single-commit: true
-      
+        run: |
+          cd $PUBLISH_DIR
+          git init
+          git config --local user.name $USERNAME
+          git config --local user.email $EMAIL
+          git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "Deploy to Github pages"
+          git push origin gh-pages -f
+
       - name: Notify user of deployment completion
         run: echo Commits successfully deployed to gh-page
