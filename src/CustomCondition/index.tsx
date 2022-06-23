@@ -20,10 +20,14 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
   const entryContext = useContext(EntryContext)
 
   const wheelLabelOptions = () => {
-    const labels = []
-    if (entryContext.dataState.sheetHeaders) {
+    const labels: any = []
+    if (entryContext!.dataState.sheetHeaders) {
       for (const key of entryContext.dataState.sheetHeaders) {
-        labels.push(<MenuItem key={key.headerName} value={key.headerName}>{key.headerName}</MenuItem>)
+        labels.push(
+          <MenuItem key={key.headerName} value={key.headerName}>
+            {key.headerName}
+          </MenuItem>
+        )
       }
     }
     return labels
@@ -42,7 +46,7 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
               min={0}
               max={10}
               defaultValue={5}
-              onChange={(e) => setWheelSpeed(e.target.value)}
+              onChange={(e: any) => setWheelSpeed(e.target.value)}
               valueLabelDisplay="auto"
               disabled={isSpinning}
             />
@@ -51,7 +55,7 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Wheel Label</InputLabel>
               <Select
-                defaultValue=''
+                defaultValue=""
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 label="Age"

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import { useContext, useState } from "react"
 
 import { Paper, TextField, Button, Divider, Typography } from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
@@ -26,7 +26,7 @@ export const InputSession = () => {
         <Divider orientation="vertical" flexItem />
         <GitHubIcon sx={pointerStyle} onClick={() => window.open("https://github.com/511234", "_blank")} />
         <Divider orientation="vertical" flexItem />
-        <EmailIcon sx={pointerStyle} onClick={() => (window.location = "mailto:lulutheflaneur@gmail.com")} />
+        <EmailIcon sx={pointerStyle} onClick={() => (window.location = "mailto:lulutheflaneur@gmail.com" as any)} />
       </div>
       <TextField
         fullWidth

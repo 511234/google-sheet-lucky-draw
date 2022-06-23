@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid"
 import { EntryContext } from "../Hooks"
 
 export const DataTable = () => {
-  const entryContext = useContext(EntryContext)
+  const entryContext = useContext<any>(EntryContext)
 
   return (
     <div style={{ height: "40rem", width: "100%" }}>

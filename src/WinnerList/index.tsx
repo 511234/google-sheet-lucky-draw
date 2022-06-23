@@ -3,31 +3,37 @@ import Typography from "@mui/material/Typography"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import IconButton from "@mui/material/IconButton"
+import { ReactChild, ReactFragment, ReactPortal, Key } from "react"
 
 export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning }) => {
   const showWinnerList = () => {
-    const list = []
+    const list: any[] = []
     winners
-      .filter((_, index) => index !== winners.length - 1)
-      .map((winner, index) => {
-        list.push(
-          <ListItem
-            key={index}
-            onClick={() => {
-              const newWinners = winners.filter((element, key) => key !== index)
-              setWinners(newWinners)
-            }}
-            secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            }
-          >
-            <ListItemText primary={winner} />
-          </ListItem>
-        )
-        return list
-      })
+      .filter((_: any, index: number) => index !== winners.length - 1)
+      .map(
+        (
+          winner: boolean | ReactChild | ReactFragment | ReactPortal | null | undefined,
+          index: Key | null | undefined
+        ) => {
+          list.push(
+            <ListItem
+              key={index}
+              onClick={() => {
+                const newWinners = winners.filter((_element: any, key: any) => key !== index)
+                setWinners(newWinners)
+              }}
+              secondaryAction={
+                <IconButton edge="end" aria-label="delete">
+                  <DeleteIcon />
+                </IconButton>
+              }
+            >
+              <ListItemText primary={winner} />
+            </ListItem>
+          )
+          return list
+        }
+      )
     return list
   }
   return (
@@ -43,7 +49,7 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
           <ListItem
             key={winners.length - 1}
             onClick={() => {
-              const newWinners = winners.filter((element, key) => key !== winners.length - 1)
+              const newWinners = winners.filter((_element: any, key: number) => key !== winners.length - 1)
               setWinners(newWinners)
             }}
             secondaryAction={

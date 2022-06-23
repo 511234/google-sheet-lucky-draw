@@ -2,8 +2,6 @@ import { createContext } from "react"
 
 // UseContext
 
-export const EntryContext = createContext(null)
-
 // UseReducer
 
 export const EDIT_SHEET_ID = "EDIT_SHEET_ID"
@@ -11,11 +9,13 @@ export const EDIT_SHEET_NAME = "EDIT_SHEET_NAME"
 export const EDIT_SHEET_HEADERS = "EDIT_SHEET_HEADERS"
 export const EDIT_SHEET_ENTRIES = "EDIT_SHEET_ENTRIES"
 
-export const dataInitialState = {
+export const dataInitialState: any = {
   sheetId: "",
   sheetHeaders: [],
   sheetEntries: [],
 }
+
+export const EntryContext = createContext(dataInitialState)
 
 export const dataReducer = (state, action) => {
   const { type, payload } = action

@@ -1,16 +1,14 @@
 import "./App.css"
 import { InputSession } from "./InputSession"
 import { FunctionalTab } from "./FunctionalTab"
-import { DataTable } from "./TableView/index.js"
+import { DataTable } from "./TableView"
 import { LuckyWheel } from "./LuckyWheel"
 import { useReducer } from "react"
 import { dataInitialState, dataReducer, EntryContext } from "./Hooks"
-import { RaffleDraw } from "./RaffleDraw"
 import { SheetData } from "./Hooks/sheetData"
 import Grid from "@mui/material/Grid"
-import { About } from "./About"
 
-const App = () => {
+export const App = () => {
   const [state, dispatch] = useReducer(dataReducer, dataInitialState)
 
   return (
@@ -27,5 +25,3 @@ const App = () => {
     </EntryContext.Provider>
   )
 }
-
-export default App

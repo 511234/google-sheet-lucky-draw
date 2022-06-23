@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { EntryContext } from "../Hooks"
 import { Button, Grid } from "@mui/material"
 import "./index.css"
@@ -9,11 +9,11 @@ import { WinnerList } from "../WinnerList"
 export const LuckyWheel = () => {
   const MIN_PARTICIPANTS = 4
 
-  const entryContext = useContext(EntryContext)
+  const entryContext = useContext<any>(EntryContext)
   const [isSpinning, setIsSpinning] = useState(false)
   const [isNewStart, setIsNewStart] = useState(true)
   const [random, setRandom] = useState(0)
-  const [winners, setWinners] = useState([])
+  const [winners, setWinners] = useState<any>([])
   const [currentWinner, setCurrentWinner] = useState({})
   const [isWinnerVisible, setIsWinnerVisible] = useState(false)
   const [wheelSpeed, setWheelSpeed] = useState(5)
@@ -22,7 +22,7 @@ export const LuckyWheel = () => {
 
   const headers = entryContext.dataState.sheetHeaders
   const createSectors = (wheelParticipants) => {
-    const sectors = []
+    const sectors: any = []
     const sectorDegrees = 360 / wheelParticipants.length
     wheelParticipants.map((wheelParticipant, index) => {
       const sectorRotateDegrees = sectorDegrees * index
@@ -74,7 +74,7 @@ export const LuckyWheel = () => {
   useEffect(() => {
     const actualDeg = random % 360
     const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * participants.length)
-    const luckyPerson = participants.find((entry, index) => index === luckyEntry - 1)
+    const luckyPerson: any = participants.find((entry, index) => index === luckyEntry - 1)
     if (luckyPerson) {
       setWinners([...winners, luckyPerson[wheelLabel]])
     }

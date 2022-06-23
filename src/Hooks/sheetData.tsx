@@ -3,7 +3,7 @@ import axios from "axios"
 import { EDIT_SHEET_HEADERS, EDIT_SHEET_ENTRIES, EntryContext } from "../Hooks"
 
 export const SheetData = () => {
-  const entryContext = useContext(EntryContext)
+  const entryContext = useContext<any>(EntryContext)
 
   const getDataFromOpenSheet = async () => {
     const sheetId = entryContext.dataState.sheetId
@@ -14,24 +14,25 @@ export const SheetData = () => {
       const resObj = JSON.parse(res.data.substring(47).slice(0, -2))
 
       // Set Headers
-      const cols = resObj.table.cols
-      const colsArray = []
+      const cols: any = resObj.table.cols
+      const colsArray: any[] = []
       for (const key of cols) {
         colsArray.push(key.label)
       }
-      const headers = []
+      const headers: any[] = []
       for (const value of colsArray) {
         headers.push({ field: value, headerName: value })
       }
       entryContext.dataDispatch({ type: EDIT_SHEET_HEADERS, payload: headers })
 
       // Set People
-      const rows = resObj.table.rows
+      const rows: any = resObj.table.rows
       const getRows = () => {
-        const rowsArray = []
-        rows.map((row, index) => {
-          const obj = {}
-          Object.values(row)[0].map((record, index) => {
+        const rowsArray: any[] = []
+        rows.map((row: any, index) => {
+          const obj: any = {}
+          const myValues: any = Object.values(row)
+          myValues[0].map((record, index) => {
             const label = colsArray[index]
             obj[label] = record.v
             return obj
