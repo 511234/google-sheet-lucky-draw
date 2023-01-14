@@ -20,7 +20,7 @@ export const InputSession = () => {
 
   const fetchSheetEntries = useCallback(() => {
     dataDispatch({ type: EDIT_SHEET_ID, payload: sheetId })
-  }, [])
+  }, [dataDispatch, sheetId])
 
   const handleOpenGithub = useCallback(() => {
     window.open("https://github.com/511234", "_blank")

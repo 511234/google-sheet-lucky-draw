@@ -17,6 +17,7 @@ export const dataInitialState: IDataInitialState = {
   sheetEntries: [],
 }
 
+// need useCallback?
 export const dataReducer = (dataState, action) => {
   const { type, payload } = action
   switch (type) {

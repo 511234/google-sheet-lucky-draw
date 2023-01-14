@@ -10,9 +10,9 @@ export const LuckyWheel = () => {
   const MIN_PARTICIPANTS = 4
 
   const { dataState } = useContext<any>(EntryContext)
-  const [isSpinning, setIsSpinning] = useState(false)
-  const [isNewStart, setIsNewStart] = useState(true)
-  const [random, setRandom] = useState(0)
+  const [isSpinning, setIsSpinning] = useState<boolean>(false)
+  const [isNewStart, setIsNewStart] = useState<boolean>(true)
+  const [random, setRandom] = useState<number>(0)
   const [winners, setWinners] = useState<any>([])
   const [currentWinner, setCurrentWinner] = useState({})
   const [isWinnerVisible, setIsWinnerVisible] = useState<boolean>(false)
@@ -23,6 +23,7 @@ export const LuckyWheel = () => {
   const headers = dataState.sheetHeaders
   const createSectors = (wheelParticipants) => {
     const sectors: any = []
+
     const sectorDegrees = 360 / wheelParticipants.length
     wheelParticipants.map((wheelParticipant, index) => {
       const sectorRotateDegrees = sectorDegrees * index
@@ -76,10 +77,11 @@ export const LuckyWheel = () => {
     const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * participants.length)
     const luckyPerson: any = participants.find((entry, index) => index === luckyEntry - 1)
     if (luckyPerson) {
-      setWinners([...winners, luckyPerson[wheelLabel]])
+      // trigger re-render: setWinners([...winners, luckyPerson[wheelLabel]])
+      setWinners((prev) => [...prev, luckyPerson[wheelLabel]])
     }
     setCurrentWinner(luckyPerson)
-  }, [random])
+  }, [participants, random, wheelLabel])
 
   useEffect(() => {
     if (headers.length) {
@@ -104,11 +106,11 @@ export const LuckyWheel = () => {
               {createSectors(participants)}
             </ul>
             {isNewStart ? (
-              <Button onClick={() => handleSpinning()} disabled={isSpinning || participants.length < MIN_PARTICIPANTS}>
+              <Button onClick={handleSpinning} disabled={isSpinning || participants.length < MIN_PARTICIPANTS}>
                 SPIN!
               </Button>
             ) : (
-              <Button onClick={() => handleRestart()} disabled={isSpinning}>
+              <Button onClick={handleRestart} disabled={isSpinning}>
                 RETURN TO STARTING POINT
               </Button>
             )}
