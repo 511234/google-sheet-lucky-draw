@@ -6,6 +6,7 @@ import GitHubIcon from "@mui/icons-material/GitHub"
 import EmailIcon from "@mui/icons-material/Email"
 import "./index.css"
 import { EDIT_SHEET_ID, EntryContext } from "../Hooks"
+const pjson = require("../../package.json")
 
 export const InputSession = () => {
   const pointerStyle = {
@@ -51,6 +52,7 @@ export const InputSession = () => {
       <Button variant="contained" onClick={fetchSheetEntries} endIcon={<SendIcon />}>
         submit
       </Button>
+      <div>Version: {pjson.version}</div>
     </Paper>
   )
 }
