@@ -17,12 +17,12 @@ import { useContext } from "react"
 import { EntryContext } from "../Hooks"
 
 export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) => {
-  const entryContext = useContext(EntryContext)
+  const { dataState } = useContext(EntryContext)
 
   const wheelLabelOptions = () => {
     const labels: any = []
-    if (entryContext!.dataState.sheetHeaders) {
-      for (const key of entryContext.dataState.sheetHeaders) {
+    if (dataState.sheetHeaders) {
+      for (const key of dataState.sheetHeaders) {
         labels.push(
           <MenuItem key={key.headerName} value={key.headerName}>
             {key.headerName}

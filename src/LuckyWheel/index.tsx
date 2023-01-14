@@ -9,18 +9,18 @@ import { WinnerList } from "../WinnerList"
 export const LuckyWheel = () => {
   const MIN_PARTICIPANTS = 4
 
-  const entryContext = useContext<any>(EntryContext)
+  const { dataState } = useContext<any>(EntryContext)
   const [isSpinning, setIsSpinning] = useState(false)
   const [isNewStart, setIsNewStart] = useState(true)
   const [random, setRandom] = useState(0)
   const [winners, setWinners] = useState<any>([])
   const [currentWinner, setCurrentWinner] = useState({})
-  const [isWinnerVisible, setIsWinnerVisible] = useState(false)
-  const [wheelSpeed, setWheelSpeed] = useState(5)
-  const [wheelLabel, setWheelLabel] = useState("")
+  const [isWinnerVisible, setIsWinnerVisible] = useState<boolean>(false)
+  const [wheelSpeed, setWheelSpeed] = useState<number>(5)
+  const [wheelLabel, setWheelLabel] = useState<string>("")
   const [participants, setParticipants] = useState([])
 
-  const headers = entryContext.dataState.sheetHeaders
+  const headers = dataState.sheetHeaders
   const createSectors = (wheelParticipants) => {
     const sectors: any = []
     const sectorDegrees = 360 / wheelParticipants.length
@@ -67,8 +67,8 @@ export const LuckyWheel = () => {
 
   // Set lucky draw pool
   useEffect(() => {
-    setParticipants(entryContext.dataState.sheetEntries)
-  }, [entryContext.dataState.sheetEntries])
+    setParticipants(dataState.sheetEntries)
+  }, [dataState.sheetEntries])
 
   // When wheel starts spinning towards a random degree, get the winner by relative position of the person at the wheel
   useEffect(() => {
