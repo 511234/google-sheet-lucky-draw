@@ -2,6 +2,27 @@ import { useContext, useEffect } from "react"
 import axios from "axios"
 import { EDIT_SHEET_HEADERS, EDIT_SHEET_ENTRIES, EntryContext } from "../Hooks"
 
+interface IHeader {
+  field: string
+  headerName: string
+}
+
+interface IGoogleSheetCols {
+  id: string
+  label: string
+  type: string
+  pattern?: string
+}
+
+interface IGoogleSheetRows {
+  v: string
+  f?: string
+}
+
+interface IGoogleSheetRowsItem {
+  c: IGoogleSheetRows
+}
+
 export const SheetData = () => {
   const entryContext = useContext<any>(EntryContext)
 
@@ -14,19 +35,22 @@ export const SheetData = () => {
       const resObj = JSON.parse(res.data.substring(47).slice(0, -2))
 
       // Set Headers
-      const cols: any = resObj.table.cols
-      const colsArray: any[] = []
+      const cols: IGoogleSheetCols[] = resObj.table.cols
+      const colsArray: string[] = []
       for (const key of cols) {
         colsArray.push(key.label)
       }
-      const headers: any[] = []
+
+      const headers: IHeader[] = []
       for (const value of colsArray) {
         headers.push({ field: value, headerName: value })
       }
+
       entryContext.dataDispatch({ type: EDIT_SHEET_HEADERS, payload: headers })
 
       // Set People
-      const rows: any = resObj.table.rows
+      const rows: IGoogleSheetRowsItem[] = resObj.table.rows
+
       const getRows = () => {
         const rowsArray: any[] = []
         rows.map((row: any, index) => {

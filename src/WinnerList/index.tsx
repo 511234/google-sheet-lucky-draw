@@ -18,15 +18,15 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
           list.push(
             <ListItem
               key={index}
-              onClick={() => {
-                const newWinners = winners.filter((_element: any, key: any) => key !== index)
-                setWinners(newWinners)
-              }}
-              secondaryAction={
-                <IconButton edge="end" aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              }
+              // onClick={() => {
+              //   const newWinners = winners.filter((_element: any, key: any) => key !== index)
+              //   setWinners(newWinners)
+              // }}
+              // secondaryAction={
+              //   <IconButton edge="end" aria-label="delete">
+              //     <DeleteIcon />
+              //   </IconButton>
+              // }
             >
               <ListItemText primary={winner} />
             </ListItem>
@@ -48,15 +48,15 @@ export const WinnerList = ({ winners, setWinners, isWinnerVisible, isSpinning })
         {(isWinnerVisible || !isSpinning) && (
           <ListItem
             key={winners.length - 1}
-            onClick={() => {
-              const newWinners = winners.filter((_element: any, key: number) => key !== winners.length - 1)
-              setWinners(newWinners)
-            }}
-            secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            }
+            // onClick={() => {
+            //   const newWinners = winners.filter((_element: any, key: number) => key !== winners.length - 1)
+            //   setWinners(newWinners)
+            // }}
+            // secondaryAction={
+            //   <IconButton edge="end" aria-label="delete">
+            //     <DeleteIcon />
+            //   </IconButton>
+            // }
           >
             <ListItemText primary={winners[winners.length - 1]} />
           </ListItem>

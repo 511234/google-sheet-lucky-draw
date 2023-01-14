@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { EntryContext } from "../Hooks"
 import { Button, Grid } from "@mui/material"
 import "./index.css"
@@ -11,26 +11,27 @@ export const LuckyWheel = () => {
 
   const { dataState } = useContext<any>(EntryContext)
   const [isSpinning, setIsSpinning] = useState<boolean>(false)
-  const [isNewStart, setIsNewStart] = useState<boolean>(true)
-  const [random, setRandom] = useState<number>(0)
-  const [winners, setWinners] = useState<any>([])
-  const [currentWinner, setCurrentWinner] = useState({})
+  const [isWheelStatic, setIsWheelStatic] = useState<boolean>(true)
+  const [random, setRandom] = useState<number>(() => Math.floor(5000 + Math.random() * 5000))
+  const [winners, setWinners] = useState<string[]>([])
   const [isWinnerVisible, setIsWinnerVisible] = useState<boolean>(false)
   const [wheelSpeed, setWheelSpeed] = useState<number>(5)
+  const currentWinnerRef = useRef<any>(null)
+
   const [wheelLabel, setWheelLabel] = useState<string>("")
-  const [participants, setParticipants] = useState([])
+
+  // type defined in Google Sheet, uncontrollable
+  const [participants, setParticipants] = useState<any[]>([])
+  const [entries, setEntries] = useState<any[]>([])
 
   const headers = dataState.sheetHeaders
-  const createSectors = (wheelParticipants) => {
-    const sectors: any = []
-
-    const sectorDegrees = 360 / wheelParticipants.length
-    wheelParticipants.map((wheelParticipant, index) => {
+  const createSectors = () => {
+    const sectorDegrees = 360 / participants.length
+    return participants.map((wheelParticipant, index) => {
       const sectorRotateDegrees = sectorDegrees * index
       const sectorSkewDegrees = Math.abs(sectorDegrees - 90)
-      const sectorTextRotateDegrees = 360 / wheelParticipants.length / 2
-
-      sectors.push(
+      const sectorTextRotateDegrees = 360 / participants.length / 2
+      return (
         <li key={index} style={{ transform: `rotate(${sectorRotateDegrees}deg) skewY(-${sectorSkewDegrees}deg)` }}>
           <div
             className="colored-sector"
@@ -43,45 +44,47 @@ export const LuckyWheel = () => {
           </div>
         </li>
       )
-      return sectors
     })
-    return sectors
   }
 
-  const handleSpinning = async () => {
-    setRandom(Math.floor(5000 + Math.random() * 5000))
-    setIsWinnerVisible(false)
-    setIsSpinning(true)
-    setIsNewStart(false)
+  // When wheel starts spinning towards a random degree, get the winner by relative position of the person at the wheel
+  const handleSpinning = useCallback(async () => {
+    if (!isSpinning) {
+      const actualDeg = random % 360
+      const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * participants.length)
+      const luckyPerson = participants.find((_, index) => index === luckyEntry - 1)
 
-    setTimeout(() => {
-      setIsWinnerVisible(true)
-      setIsSpinning(false)
-    }, wheelSpeed * 1000)
-  }
+      if (luckyPerson) {
+        // trigger re-render: setWinners([...winners, luckyPerson[wheelLabel]])
+        setWinners((prev) => [...prev, JSON.stringify(luckyPerson)])
+      }
+      currentWinnerRef.current = luckyPerson
+      setIsWinnerVisible(false)
+      setIsSpinning(true)
+      setIsWheelStatic(false)
+
+      setTimeout(() => {
+        setIsWinnerVisible(true)
+        setIsSpinning(false)
+      }, wheelSpeed * 1000)
+    }
+  }, [isSpinning, participants, random, wheelSpeed])
 
   const handleRestart = () => {
-    setParticipants(participants.filter((participant) => participant !== currentWinner))
-    setIsNewStart(true)
+    // setParticipants(participants.filter((participant) => participant !== currentWinner))
+    setIsWheelStatic(true)
     setIsWinnerVisible(false)
+    setParticipants((prev) =>
+      prev.filter((parti) => JSON.stringify(parti) !== JSON.stringify(currentWinnerRef.current))
+    )
+    setRandom(Math.floor(5000 + Math.random() * 5000))
   }
 
   // Set lucky draw pool
   useEffect(() => {
+    setEntries(dataState.sheetEntries)
     setParticipants(dataState.sheetEntries)
   }, [dataState.sheetEntries])
-
-  // When wheel starts spinning towards a random degree, get the winner by relative position of the person at the wheel
-  useEffect(() => {
-    const actualDeg = random % 360
-    const luckyEntry = Math.ceil(((360 - actualDeg) / 360) * participants.length)
-    const luckyPerson: any = participants.find((entry, index) => index === luckyEntry - 1)
-    if (luckyPerson) {
-      // trigger re-render: setWinners([...winners, luckyPerson[wheelLabel]])
-      setWinners((prev) => [...prev, luckyPerson[wheelLabel]])
-    }
-    setCurrentWinner(luckyPerson)
-  }, [participants, random, wheelLabel])
 
   useEffect(() => {
     if (headers.length) {
@@ -98,14 +101,14 @@ export const LuckyWheel = () => {
             <ul
               className="wheel"
               style={
-                isNewStart
+                isWheelStatic
                   ? { transform: `rotate(0deg)` }
                   : { transform: `rotate(${random}deg)`, transition: `all ${wheelSpeed}s ease-out` }
               }
             >
-              {createSectors(participants)}
+              {createSectors()}
             </ul>
-            {isNewStart ? (
+            {isWheelStatic ? (
               <Button onClick={handleSpinning} disabled={isSpinning || participants.length < MIN_PARTICIPANTS}>
                 SPIN!
               </Button>
@@ -114,20 +117,20 @@ export const LuckyWheel = () => {
                 RETURN TO STARTING POINT
               </Button>
             )}
-            <div>And the winner is ... {isWinnerVisible ? winners[winners.length - 1] : ""} !</div>
+            <div>And the winner is ... {isWinnerVisible ? currentWinnerRef.current[wheelLabel] : ""} !</div>
           </div>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <WinnerList
+          {/* <WinnerList
             winners={winners}
             setWinners={setWinners}
             isWinnerVisible={isWinnerVisible}
             isSpinning={isSpinning}
-          />
+          /> */}
         </Grid>
         <Grid item xs={12}>
-          <CustomCondition isSpinning={isSpinning} setWheelSpeed={setWheelSpeed} setWheelLabel={setWheelLabel} />
+          <CustomCondition isSpinning={isSpinning} setWheelLabel={setWheelLabel} setWheelSpeed={setWheelSpeed} />
         </Grid>
       </Grid>
     </>

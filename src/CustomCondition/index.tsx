@@ -19,20 +19,6 @@ import { EntryContext } from "../Hooks"
 export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) => {
   const { dataState } = useContext(EntryContext)
 
-  const wheelLabelOptions = () => {
-    const labels: any = []
-    if (dataState.sheetHeaders) {
-      for (const key of dataState.sheetHeaders) {
-        labels.push(
-          <MenuItem key={key.headerName} value={key.headerName}>
-            {key.headerName}
-          </MenuItem>
-        )
-      }
-    }
-    return labels
-  }
-
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
@@ -46,7 +32,9 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
               min={0}
               max={10}
               defaultValue={5}
-              onChange={(e: any) => setWheelSpeed(e.target.value)}
+              onChange={(e: any) => {
+                setWheelSpeed(e.target.value)
+              }}
               valueLabelDisplay="auto"
               disabled={isSpinning}
             />
@@ -62,7 +50,13 @@ export const CustomCondition = ({ isSpinning, setWheelSpeed, setWheelLabel }) =>
                 onChange={(e) => setWheelLabel(e.target.value)}
                 disabled={isSpinning}
               >
-                {wheelLabelOptions()}
+                {dataState.sheetHeaders.map((key, index) => {
+                  return (
+                    <MenuItem key={key.headerName} value={key.headerName}>
+                      {key.headerName}
+                    </MenuItem>
+                  )
+                })}
               </Select>
             </FormControl>
           </Grid>
