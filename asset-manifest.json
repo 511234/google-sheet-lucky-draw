@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/google-sheet-lucky-draw/static/css/main.55e9d271.css",
+    "main.js": "/google-sheet-lucky-draw/static/js/main.200a41ab.js",
+    "index.html": "/google-sheet-lucky-draw/index.html",
+    "main.55e9d271.css.map": "/google-sheet-lucky-draw/static/css/main.55e9d271.css.map",
+    "main.200a41ab.js.map": "/google-sheet-lucky-draw/static/js/main.200a41ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.55e9d271.css",
+    "static/js/main.200a41ab.js"
+  ]
+}
