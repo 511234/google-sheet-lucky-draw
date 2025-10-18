@@ -1,6 +1,6 @@
 {
   "name": "google-sheet-lucky-draw",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "homepage": "https://511234.github.io/google-sheet-lucky-draw",
   "private": true,
   "dependencies": {
