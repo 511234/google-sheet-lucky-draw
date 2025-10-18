@@ -4,6 +4,7 @@ import commonjs from "vite-plugin-commonjs"
 
 export default defineConfig(() => {
   return {
+    base: "",
     build: {
       outDir: "build",
     },
