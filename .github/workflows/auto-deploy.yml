@@ -29,4 +29,9 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
-      - uses: actions/deploy-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./out
+      - name: Deploy GitHub Pages site
+        uses: actions/deploy-pages@v4.0.5
