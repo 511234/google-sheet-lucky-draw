@@ -12,6 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PUBLISH_DIR: ./build
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
 
     steps:
       - name: Prepare deployment
@@ -23,5 +29,6 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Build & deploy
-        run: npm run deploy
+      - name: Build
+        run: npm run build
+      - uses: actions/deploy-pages@v4
