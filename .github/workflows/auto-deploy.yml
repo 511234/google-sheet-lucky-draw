@@ -17,7 +17,7 @@ jobs:
       PUBLISH_DIR: ./build
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [22.x]
 
     steps:
       - name: Prepare deployment
