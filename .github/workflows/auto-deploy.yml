@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PUBLISH_DIR: ./build
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     permissions:
       pages: write      # to deploy to Pages
