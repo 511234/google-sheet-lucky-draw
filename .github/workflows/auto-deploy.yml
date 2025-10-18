@@ -11,9 +11,6 @@ jobs:
     name: Deploy to gh-page
     runs-on: ubuntu-latest
     env:
-      ACCESS_TOKEN: ${{secrets.access_token}}
-      USERNAME: 511234
-      EMAIL: lulutheflaneur@gmail.com
       PUBLISH_DIR: ./build
 
     steps:
@@ -26,18 +23,5 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Create production build
-        run: npm run build
-      - name: Deploy
-        run: |
-          cd $PUBLISH_DIR
-          git init
-          git config --local user.name github-actions
-          git config --local user.email github-actions@github.com
-          git checkout gh-pages
-          git add --all
-          git commit -m "Auto deploy to Github pages"
-          git push origin HEAD:gh-pages --force
-
-      - name: Notify user of deployment completion
-        run: echo Commits successfully deployed to gh-page
+      - name: Build & deploy
+        run: npm run deploy
