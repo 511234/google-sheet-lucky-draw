@@ -4,7 +4,8 @@ import { Button, Grid } from "@mui/material"
 import "./index.css"
 import { COLORS } from "../Constants/colors"
 import { CustomCondition } from "../CustomCondition"
-import { WinnerList } from "../WinnerList"
+// import { WinnerList } from "../WinnerList"
+import { WheelSector } from "./WheelSector"
 
 export const LuckyWheel = () => {
   const MIN_PARTICIPANTS = 4
@@ -24,28 +25,9 @@ export const LuckyWheel = () => {
   const [participants, setParticipants] = useState<any[]>([])
   const [entries, setEntries] = useState<any[]>([])
 
+  const cannotSpin = isSpinning || participants.length < MIN_PARTICIPANTS
+
   const headers = dataState.sheetHeaders
-  const createSectors = () => {
-    const sectorDegrees = 360 / participants.length
-    return participants.map((wheelParticipant, index) => {
-      const sectorRotateDegrees = sectorDegrees * index
-      const sectorSkewDegrees = Math.abs(sectorDegrees - 90)
-      const sectorTextRotateDegrees = 360 / participants.length / 2
-      return (
-        <li key={index} style={{ transform: `rotate(${sectorRotateDegrees}deg) skewY(-${sectorSkewDegrees}deg)` }}>
-          <div
-            className="colored-sector"
-            style={{
-              backgroundColor: COLORS[index % 10],
-              transform: `skewY(${sectorSkewDegrees}deg) rotate(${sectorTextRotateDegrees}deg)`,
-            }}
-          >
-            {wheelParticipant[wheelLabel]}
-          </div>
-        </li>
-      )
-    })
-  }
 
   // When wheel starts spinning towards a random degree, get the winner by relative position of the person at the wheel
   const handleSpinning = useCallback(async () => {
@@ -106,14 +88,19 @@ export const LuckyWheel = () => {
                   : { transform: `rotate(${random}deg)`, transition: `all ${wheelSpeed}s ease-out` }
               }
             >
-              {createSectors()}
+              <WheelSector
+                cannotSpin={cannotSpin}
+                handleSpinning={handleSpinning}
+                participants={participants}
+                wheelLabel={wheelLabel}
+              />
             </ul>
             {isWheelStatic ? (
-              <Button onClick={handleSpinning} disabled={isSpinning || participants.length < MIN_PARTICIPANTS}>
+              <Button onClick={handleSpinning} disabled={cannotSpin}>
                 SPIN!
               </Button>
             ) : (
-              <Button onClick={handleRestart} disabled={isSpinning}>
+              <Button onClick={handleRestart} disabled={cannotSpin}>
                 RETURN TO STARTING POINT
               </Button>
             )}

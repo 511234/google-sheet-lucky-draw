@@ -35,7 +35,14 @@ export const dataReducer = (dataState, action) => {
   }
 }
 
-export const EntryContext = createContext<{ dataState: IDataInitialState; dataDispatch: React.Dispatch<any> }>({
+interface IEntryContext {
+  dataState: IDataInitialState
+  dataDispatch: React.Dispatch<any>
+}
+
+const entryContextInitialValues = {
   dataState: dataInitialState,
   dataDispatch: () => null,
-})
+}
+
+export const EntryContext = createContext<IEntryContext>(entryContextInitialValues)
